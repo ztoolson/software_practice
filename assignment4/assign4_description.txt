@@ -1,0 +1,203 @@
+Assignment #4 
+Transaction Simulation 
+Project weight: 10.0
+Due Saturday, February 1
+Estimated time: 5 - 8 hours of work per person
+
+Assignment overview
+For the fourth week, there are three primary goals:
+
+Practice decomposing large projects into small, easy-to-develop pieces,
+practice working with data structures in C++, and
+develop and improve your teamwork abilities.
+The project below is simple: read a data file and generate a report that answers certain questions about the data.  There are many details, though, that will require you to conduct experiments, search and explore libraries that you have not used, and write moderately complex code.  Because of the independent learning that is needed, I recommend that most students plan for two or three hours of research and experimentation.
+
+The project is due on a Saturday, but office hours end Friday.  Plan ahead to compensate - we won't be available on Saturday.
+
+Use professional commenting, formatting, and style in all your work.  Submit and verify all classes and header files needed to compile your solution.  We will supply our own data files for testing.
+
+I reserve the right to make minor corrections to the specification through Tuesday of week #4.
+
+Team programming
+
+This is the first assignment that allows you to have a partner.  You may work in teams of two (not more), or by yourself.  Students who work alone are choosing a double workload.  Students who work in teams should note the following:
+
+Working with a partner is a great learning opportunity.  To maximize your learning, choose a partner whose level of knowledge is about the same as yours.
+
+You may program as a pair, or you may design together but program separately and then join your work.  This is up to you and your teammate - the goal should be to minimize development time and maximize correctness.
+
+Make sure you and your teammate put both your names in each of your .cc and .h files.  The files belong to both of you.  (Students may not look at or hand in work that belongs to someone who is not on their team, and code ownership is not revocable or transferable.)
+
+You will be required to indicate your participation (the work you did) in the subsequent journal entry.  Keep track of your work and the time you spent on it.
+
+Teams may disagree and break up, but I hope it doesn't happen.  You may form new teams, but please adhere to the rules above about code ownership.  Newly formed teams should develop all new code (without looking at old code) to avoid plagiarism.
+
+I will encourage teammates to switch partners after this assignment.  Expect it.
+
+I recommend that teams work in a public, secure space when together for personal safety.
+
+A note on makefile and useful libraries:
+
+Students have asked if they can use various libraries (boost, libraries for regular expressions, etc.) in their solution.  Yes, but on these conditions:
+
+The libraries must be part of the standard g++ installation in the CADE as of last week.  (Please do not ask the opers to install something.)  We must be able to compile and execute your code on the lab1 machines.
+
+If needed, you must provide a makefile for your solution that builds it for us.  The default rule must build your solution (and only build your solution).  Also, confine your solution to a single directory, and don't use any absolute paths. 
+
+Your makefile must build the executable to "a.out".  We must be able to execute your code by typing "./a.out".  (Don't ask us to run a batch file, configure a path, or set an environment variable when running your program.)
+
+There are many, many standard libraries you can use to simplify your work.  I highly recommend exploring some of (but not all of) the boost classes.  Just make sure to balance your time.  It's both fun and easy to spend all your time learning about libraries without actually solving the assignment.  :)
+
+When we test your code, we'll dump everything into a single directory and fire off the makefile if one exists.  Otherwise, we'll just do "g++ *.cpp *.cc *.C" to build "a.out".
+
+P.S.  A wise student won't use regular expressions.  If I had tried this, it would have taken me an hour to get the regular expressions working.  It only took me about 15 minutes to parse the input by simply inputting words and lines.
+
+Assignment requirements:
+
+For this assignment you are to write a complete application to perform an analysis of inventory for a small wholesale food products company.  Your program will do only the following:
+
+Receive a filename as the only command line parameter.
+Read data from the specified text file that describes food items, warehouses, and transactions over a several day period.
+Use the transaction information to adjust the inventories for each warehouse.
+Print out a report to the console that answers several questions about the data.
+Your program should print out only the required report without extra debugging output, prompts, excess whitespace, or other output that would make the output difficult to parse automatically.
+
+You are required to properly use at least two classes to represent data from the file.  (You'll likely use more.)
+
+Before starting, you may want to download these files:
+
+data1.txt - a small test case
+data2.txt - a medium test case
+data3.txt - a large test case
+To simulate a real-world situation, there are not any 'keys' for this test data. 
+
+Data File Format
+
+The data file is separated into two parts.  The first part of the data file declares what food items exist, and where the warehouses are that store the items.  The second part of the data file is a list of transactions that occur daily.  Each transaction indicates that items were received by a warehouse, or requested (shipped) from a warehouse.  Here is a sample data file:
+
+FoodItem - UPC Code: 0353264991  Shelf life: 2  Name: chestnut puree with vanilla
+FoodItem - UPC Code: 0984523912  Shelf life: 1  Name: the orange box
+Warehouse - Columbus
+Warehouse - Scottsdale
+Warehouse - Tacoma
+Start date: 05/01/2010
+Receive: 0984523912 7 Tacoma
+Receive: 0353264991 6 Tacoma
+Receive: 0353264991 2 Scottsdale
+Request: 0984523912 5 Tacoma
+Next day:
+Request: 0984523912 4 Columbus
+Request: 0353264991 4 Columbus
+Next day:
+Receive: 0353264991 9 Columbus
+Receive: 0984523912 2 Columbus
+Request: 0353264991 3 Scottsdale
+Next day:
+Request: 0984523912 8 Scottsdale
+Receive: 0984523912 8 Columbus
+Request: 0984523912 3 Tacoma
+Request: 0353264991 10 Tacoma
+Request: 0984523912 5 Tacoma
+End
+The format is line-oriented:  Each line of the data file provides one piece of information to your program.  The first word(s) of each line indicate what to do with the data on that line.  Your program should read the file one line at a time and process the lines like this:
+
+Food Item ‑ UPC Code: number Shelf life: number Name: name goes here
+
+Each food item is specified on a line that starts with the words 'Food Item'.  A food item has a UPC code (a single string of numbers), a shelf life (in days), and a name (a string of words that ends at the end of the line).  This instruction tells your program that this food item will be used, so your program will need to store this food item information.  Note that the UPC code uniquely identifies each item.
+
+Warehouse ‑ Warehouse name goes here
+
+Each warehouse inventory is specified on a line that starts with the word 'Warehouse'.  A warehouse has a name (a string of words that ends at the end of the line) that is the name of the city where the warehouse is located.  This instruction tells your program that that this warehouse exists, so your program will need to store the warehouse name and keep track of an inventory for this warehouse.  Every warehouse name is unique.
+
+Start Date: MM/DD/YYYY
+
+The start date indicates a month, day, and a year for which record keeping should begin.  (This instruction format will always have the same number of characters.)  The start date is used to keep track of when transactions happen.  The instructions on the following lines all happen on some effective date.  Your program will need to keep track of the effective date.
+
+Receive: UPCnumber quantity warehouse name goes here
+
+The receive command indicates that a warehouse has received some food items on the current effective date.  Each receive instruction has a UPC code (indicating the item received), a positive quantity, and the name of the warehouse receiving the item.  Your program should record the item and quantity as received in the correct warehouse's inventory.  In addition, the inventory should keep track of the day on which this item will expire in the inventory.  Compute the expiration date by adding the item's shelf life to the current effective date.
+
+Request: UPCnumber quantity warehouse name goes here
+
+The request command indicates that a food item has been requested for delivery from a warehouse.  Each request instruction has a UPC code (indicating the item requested), a positive quantity, and the name of the warehouse that should attempt to deliver the item.  Your program should remove that quantity of items from the correct warehouse's inventory.  It is possible that the warehouse may not have that item, or may run out before fully satisfying the request.  If multiple groups of the item exist in that warehouse's inventory, remove matching items with the oldest expiration date first.
+
+Note:  If there is a request quantity that exceeds the available quantity, all the available product is used, and the remainder of the request is ignored.  One request may be satisfied by inventory that arrived on multiple days.  Unfilled requests are dropped (not stored).  Transactions cannot be rearranged to fill a request - just handle them in the order they appear.
+
+Next Day:
+
+The next day instruction advances the effective date by one day.  All following instructions should be treated as occurring on the following day.  Your program should advance the effective date.  In addition, your program should remove any expired inventory from the warehouses when this instruction is processed.  (When a food item's expiration day is reached, it expires at the start of that day.  An item with a shelf life of one day would expire the day after it arrived.)
+
+End:
+
+Indicates the end of the file.  Your program should stop reading the instructions when it encounters this one.
+
+You may assume the data file will be formatted as shown above without blank lines or extra space.  Product names and warehouse names may have whitespace in them, and are terminated by the end of the line.  Dates will be between the years 2001 and 2014 inclusive.  You have to deal with leap years, but I've narrowed the date range to keep the computation simple.  (While not required, you may be interested in researching the ctime library.)
+
+Required report
+
+Your program should read in the data, simulating the warehouse activity on a line-by-line basis.  Simulate the activity exactly as shown in the data file - do not rearrange, delay, or group requests.  (It may happen that a warehouse runs out of something, and then it is restocked on the next line on the same day.  Do not rearrange things to avoid out-of-stock conditions or you will corrupt the results.)  At the end of processing the data file, your program should print out the following report:
+
+On a single line, print out the title: "Report by " followed by your names.  For example, my program prints:
+
+Report by Peter Jensen
+Print a single blank line following the title.
+
+Determine which products do not exist in any warehouse..  On a single line, print out "Unstocked Products:".  On the following lines, print out a list of the products that do not exist in any warehouse (in any order, no duplicates).  For each food item, only print out its UPC and name, as follows:
+
+Unstocked Products:
+0984713912 pizza
+0278374752 bagels
+Don't print out any other information, such as expiration dates, warehouse names, or quantities.  Just list the products (no duplicates) that are absent from every warehouse.
+
+Print a single blank line following the unstocked product list.
+
+Determine which products still exist in every warehouse.  On a single line, print out "Fully-Stocked Products:".  On the following lines, print out a list of the products that have positive quantities in every warehouse (in any order, no duplicates).  For each food item, only print out its UPC and name, as follows:
+
+Fully-Stocked Products:
+0984712812 mushroom ice cream
+0278374652 seaweed cereal
+To be clear, if a product has a positive quantity in only 9 out of 10 warehouses, it would not be on this list. 
+
+Print a single blank line following the fully-stocked product list.
+
+Determine the single busiest day for each warehouse.  The single busiest day for each warehouse is the day with the most products received and shipped (added together), with ties going to later days.  On a single line, print out "Busiest Days:".  On the following lines, print out one line for each warehouse.  Print out the warehouse name, the date (as MM/DD/YYYY), and the sum of all the transaction quantities for that day, as follows:
+
+Busiest Days:
+Miami 03/16/2005 19283
+Nome 12/24/2007 1827364
+Barstow 10/01/2006 12
+When computing which day is the busiest, just sum up the receive and request quantities found in the data file.  Do not worry about items that are out of stock or orders that are partially filled. 
+
+All output should be to the console.  Disable any debugging output you have prior to submitting your program - we need clean, easy-to-parse answers in order to grade your programs.
+
+After your program finishes outputting data, it should terminate.
+
+Algorithm efficiency matters.  Our private files may span multiple years, have hundreds of products, hundreds of warehouses, and many millions of transactions.  Your programs must finish in reasonable time.
+
+Suggested workflow:
+
+With a proper design, the total amount of complicated code can be kept to a minimum, and writing the code should be straightforward.  This assignment will be much more difficult without proper planning - I wrote it this way on purpose.  I recommend the following workflow:
+
+Decide upon the classes that you need to create.  Keep the classes that represent data file entries exceptionally simple - don't put tons of algorithm code in those classes. 
+
+(I recommend that you either find a library date class, or write your own (very simple) date class that has only the needed functionality.)
+
+Decide upon what data structures you need to keep track of the warehouse activity.  Also decide if you want to write them, or if you want to invest the time needed to learn how to use the few C++ STL libraries that you'd need. 
+
+If you choose to learn a bit about C++ STL libraries (which I recommend), then I suggest that you write a bit of experimental code to make sure you know how to use them properly. 
+
+Think about reading the file.  What function calls would make this easier?  Look 'em up, and conduct a few tests of your ideas.
+
+Decide upon an algorithm for each question.  How and when will you determine the answer to each report problem?  How will you store the results?
+
+Code, debug, and repeat until done.
+
+Construct a few test cases and inspect results of your small tests by hand. 
+
+Try it on bigger files.
+
+Hand in all .cc and .h files needed to build your solution.
+
+Submitting your work:
+
+Please remember to submit all .cc and .h files needed to make your work compile.  (Submit all files, even those supplied by us.)  Also include any data files needed by your tester.

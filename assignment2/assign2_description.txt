@@ -1,0 +1,79 @@
+Assignment #2 
+A Huge Number Class 
+Project weight: 8.0
+Due Friday, January 17
+Estimated time: 2 hours (experienced programmers) - 8 hours (newer programmers)
+
+Assignment overview
+For the second week, my goal is for you to practice with classes, functions, strings, and operator overloading.  You should be gaining experience with a simple editor and compilation at the command line.  It is likely that errors will plague students this week, so I recommend lots of short programming sessions so that you can resolve errors without wasting hours of time. 
+
+The amount of time you spend on this assignment will depend greatly on your approach.  Think carefully about how you want to do the work, decompose the problem wisely.  It is possible to take small steps and test them, and I highly recommend it. 
+
+On the first week of the schedule, I have posted examples from class and links to resources I found valuable.  Students are free to use my code in their own solutions, but you will need to comment better than I did to receive full credit. 
+
+To complete this assignment, write one class as specified below.  We will use our own test program to test your class, so it is very, very important that your class is named exactly as shown below, and that the required class functions are declared and perform as specified below.  (If our code does not compile with your solution, you'll get a 'fair' score (60%) at best.)
+
+Use professional commenting, formatting, and style.  Submit and verify your huge_number.cc and huge_number.h source code files using the controls at the bottom of this webpage.  Submit only new, original code written by you. 
+
+Finally, remember that you don't have to sit in front of a CADE lab Linux machine to do this work.  Use remote connections.
+
+The huge_number class:
+
+Create a class named huge_number whose objects represent non-negative integers of an arbitrary number of digits.  (Your objects might need to represent 42, or 4200000000000000000000001.)  Requirements follow:
+
+Place your class declaration in huge_number.h, and your class function and friend function definitions (if any) in huge_number.cc.  All of your solution must be in these two files.  These files must not contain a main function.  (FYI:  there is a semicolon after the closing brace of a class declaration.)
+
+Internally, your huge_number objects must keep the number stored in a private string object (as character digits).  Do not change the string to an array of integers, remove the ASCII bias, or any other optimization.  (This is designed to help you - you can cout your number string at any time for debugging.)
+
+Include a public default constructor that initializes the object to represent 0.
+
+Include a public constructor that takes a single string parameter representing a non-negative integer.  You may assume the string contains only digits.  The constructor will be used like this:
+
+      string s = "123";
+      huge_number h(s);
+  
+Include a public copy constructor.
+
+Include a public accessor method named get_value that returns the string representation of the number within the object.  It must have this signature:
+
+    string get_value ();
+  
+Publicly overload the =, +, -, *, /, and % operators so that they will work as expected when applied to huge_number objects.  Here is an example of how they might be used:
+
+    string a = "123";
+    string b = "456";
+    huge_number x(a);
+    huge_number y(b);
+    huge_number z;
+
+    z = x * y - x;
+
+    cout << x.get_value() << endl;  // X should not have changed
+    cout << y.get_value() << endl;  // Y should not have changed
+    cout << z.get_value() << endl;
+  
+You are not required to overload operators that work with other data types:
+
+     z = x + 4;  // This is NOT required.
+     z = x + "4";  // This is NOT required, but just might work.
+   
+Subtraction may result in values less than 0.  When this happens, change the result to 0.  (No negative numbers.)
+
+Division must be sufficiently efficient that dividing a 30 digit number by a small number will complete within a few seconds.
+
+Internally, remove any leading 0's from your numbers, except make sure your numbers have at least one digit.
+
+Hint:  You may use my example code from the first week to add and multiply numbers.  You will need to make my functions private members of your class.  (I haven't found any bugs, but that's not guaranteed.)  You will have to write your own methods for subtraction, division, and mod.
+
+Place any needed helper methods in the private section of your class.  Do not have helper methods that are not part of the class.
+
+You may add statements for debugging, but remove any statements that generate console output before submitting your code.
+
+You are free to overload other operators and add other functionality, except that your code cannot generate console output when you hand it in, and your changes cannot impose requirements on our testing.  For operator overloading, you may declare and use friend functions where appropriate.
+
+Your code must compile and run using g++ on the CADE lab 1 machines without any special compilation instructions.  We will issue these commands to compile and test your code with our tester:
+
+    g++ tester.cc huge_number.cc
+    ./a.out
+  
+It is your responsibility to make sure this works.

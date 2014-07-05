@@ -1,0 +1,2 @@
+THis is a simple test for the lineset class for cs3505. How exciting
+are these special words. test test test There should only be one test.

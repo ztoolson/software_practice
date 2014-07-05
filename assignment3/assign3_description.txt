@@ -1,0 +1,91 @@
+Assignment #3 
+A Set of Strings 
+Project weight: 10.0
+Due Friday, January 25
+Estimated time: 2.5 hours (experienced programmers) - 7 hours (newer programmers)
+
+Assignment overview
+For the third week, my goal is for you to practice with pointers in a data structure.  You will finish writing the lineset class that I started in Thursday's lecture.  Like last week, it is likely that errors will plague students this week, so I recommend lots of short programming sessions so that you can resolve errors without wasting hours of time. 
+
+Working with pointers requires diagrams.  Draw pictures of the pointers and what they point to, and then make sure your code adjusts pointers properly.  Without diagrams, you have no hope of debugging your code. 
+
+On the second week of the schedule, I have posted links to resources I found valuable.  Reviewing these links is part of the expected work in this assignment.  Students unfamiliar with hashtables (with chaining) or linked lists have missed material that was taught in CS 2420.  Please find a reference to review this material.
+
+We will test your classes with our own test programs.  You are not allowed to change any declarations, unless directed to do so by the assignment.  We will expect your code to be entirely contained within the node and lineset files.  Our tester must compile with your classes or you will only receive a small amount of credit.  (If our code does not compile with your solution, you'll get a 'fair' score (60%) at best.)
+
+Use professional commenting, formatting, and style in all your work.  Submit and verify all classes, testers, and header files needed to compile your solution.  For the required work, submit only new, original code written by you.  (You may, of course, include the code I have provided this semester.)
+
+Finally, remember that you don't have to sit in front of a CADE lab Linux machine to do this work.  Use remote connections.
+
+Getting started:
+
+Download the files located beneath this assignment on the schedule.  Make sure you can compile and run the tester.  (You'll need to compile all three .cpp files together.)
+
+Read through the files (starting with the tester).  (This is part of the assignment, so don't skip it.)  I have added a lot of comments, and I have written them with teaching in mind. 
+
+Complete two functions in the lineset class:
+
+I have written most of the lineset class for you.  You are to write statements to complete the following functions:
+
+remove
+operator=
+Follow these requirements:
+
+These functions are already declared and defined for you.  Find the function definition, then write the statements in it so that the function contract and internal comments are satisfied.  (The function contract is above the function.)
+
+You may not alter other node or lineset class functions.  You may not add functions to the node or lineset classes to complete this part.  You may not rename or change the declaration of anything else.  Only write code in the two functions above.  (You may make function calls and create local variables as needed.)
+
+It is expected that you might add debugging functions or output during development.  Be careful to not write solutions that depend on the existence on these debugging statements.  Remove all debugging code and output (and then test your code) before submitting your code.
+
+When the above two functions begin, you may assume that the hashtable is correctly set up (unless noted in comments).  When your functions complete, you must ensure the hashtable is not corrupted.  (Your work should use and/or modify the hashtable and its linked list chains, but not corrupt them.)
+
+The lineset class currently cleans up its allocated memory.  You cannot break this behavior - when your program completes, every allocated object must have been destroyed exactly once.  (It is unlikely that you'll break this.)
+
+Add the following function to lineset:
+
+The lineset class is flawed.  There is currently no way to examine the elements in the set.  You'll fix that oversight in this part.  Add a public declaration and definition to the lineset class that satisfies this contract and header:
+
+
+  /** This function populates an array of strings with elements from the set.
+    * The caller passes an array (by pointer) and a count 'n' to the function.
+    * The function copies n unique elements from the set into
+    * the array.  (Order does not matter.)  If 'n' is smaller
+    * than the number of elements in the set, only 'n' elements are
+    * copied into the array in positions [0..n-1].  If 'n' is larger than the number
+    * of elements in the set, all the elements in the set are
+    * copied into the first positions of the array, and excess positions
+    * in the array remain unchanged.
+    *
+    * It is assumed that the array reference is valid and that n is non-negative.
+    */
+  void get_elements(string *array, int n) const;
+The requirements from the above section remain in place (with the obvious exception that you have to add this function).  It is intended that your function will be used like this:
+
+  string *e = new string[some_set.size()];
+  
+  some_set.get_elements(e, some_set.size());
+
+  // Use the strings in e.
+
+  delete [] e;
+Write a more complete test program:
+
+The tester that I wrote has two major flaws:
+
+It does not test all the functionality in the lineset class.
+It does not verify the contents of the set for accuracy.
+Write a more comprehensive test program.  (This is intentionally vague.)  Your goal is to write a test program that will report an error if the lineset has any flaw in it's implementation.  You may use up to three external data files (500K or less in size) in your tests.  If you do use external data files, you must submit them below.
+
+Follow these requirements:
+
+When a test fails, your program should output enough information that the reason for the failure is clear.  In addition, the last line of your output must be either "Tests passed" or "Tests failed" based on the results of the tests.
+
+Confine your tester to a single, well-commented file named tester.cpp.
+
+We will run your tester on other students' code to determine whose tester is most accurate.  Because of this, your tester may not rely on unauthorized changes to the lineset class or node class. 
+
+Your tester may not rely on the order of the elements within the set.
+
+Submitting your work:
+
+Please remember to submit all .cpp and .h files needed to make your work compile.  (Submit all files, even those supplied by us.)  Also include any data files needed by your tester.

@@ -1,0 +1,32 @@
+Assignment #1 
+Warm-up: A few simple C++ programs 
+Project weight: 2.0
+Due Friday, January 10
+
+Assignment overview
+For this first week, my goal is for you to learn the required steps for developing, compiling, and running C++ programs from the Linux command line.  This will involve a bit of exploration, and you may need to consult a few C++ references.  Feel free to use code and information from lectures - that's what it's for.  Also, don't use any IDEs, or you're missing the entire point of the assignment.  I expect most students to complete this work in less than two hours.  Good luck!
+
+To complete this assignment, write each program as specified below.  Verify that your programs compile and run on the CADE lab Linux computers.  Use professional commenting, formatting, user dialogs, and style.  Wherever details are supplied, adhere to them (filenames, etc.).  Do not create header files.  Submit and verify each .cc (or .cpp) source code file using the controls at the bottom of this webpage.
+
+Note:  In CS 1410, I gave abundant details and step by step instructions.  For this class, CS 3505, I will simply specify requirements.  It is your task to meet the requirements.  You should design any underspecified parts in a a reasonable, professional manner that favors clarity.  Submit only new, original code written by you. 
+
+Finally, remember that you don't have to sit in front of a CADE lab Linux machine to do this work.  Use remote connections.
+
+Part 1: convert_mass.cc
+
+Write a command-line application that converts pounds to kilograms for the user.  The program should behave as follows:
+
+The program is launched from the command line without arguments.
+The user is prompted to enter a weight in pounds.
+The user enters a number (possibly decimal).
+The program treats the number as a weight in pounds, converts it to kilograms, and outputs the result for the user.
+The program ends, and the user is returned to the command line.
+Round the computed result (prior to displaying) to two decimal places.  (It is not required to display two digits to the right of the decimal point.)  Use cout and cin for console I/O.  Resolve user errors in a user-friendly way.
+
+Part 2: test_prime.cc
+
+Write a command-line application that determines if an integer is prime.  The program should behave as follows:
+
+The program is launched from the command line with a single argument.
+The program prints 'prime' if the argument can be parsed as a integer that is prime, otherwise the program prints 'composite'.
+Terminate the output with a newline character.  Your program is not required to correctly test parameters that specify an integer that does not fit within the int datatype.  Resolve user errors in a user-friendly way.
